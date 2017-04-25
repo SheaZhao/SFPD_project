@@ -127,11 +127,12 @@ deaths_by_race.qplot
 # death rates by race in descending frequency: 
 # white, black, hispanic, unknown race, asian, native american, pacific islander
 
-pdf("figures/Deaths_By_Age")
-deaths_by_age.qplot <- qplot(age, data = mpv_2, fill = age)
-dev.off()
+#pdf("figures/Deaths_By_Age")
+#deaths_by_age.qplot <- qplot(age, data = mpv_2, fill = age)
+#dev.off()
 
-deaths_by_age.qplot
+#deaths_by_age.qplot 
+# pretty, but since age is a character the plot is crap: 1, 10, 110,...2,20,21
 
 typeof(mpv_2$age)
 
@@ -139,8 +140,23 @@ typeof(mpv_2$age)
 # I can plot it properly w/ ggplot
 
 mpv_4 <- filter(mpv_2, !is.na(age))
-unique(mpv_4$age) # no NA's
-mean(mpv_4$age) # works
+unique(mpv_4$age) # no NA's, BUT there is a class called Unknown!
+mpv_4.1 <- filter(mpv_4, age != "Unknown")
+mean(mpv_4.1$age) # works
+unique(mpv_4.1$age) # no NA's or Unknowns
+
+mpv_4.1$age <- as.numeric(mpv_4.1$age) # now I can make it numeric
+
+summary(mpv_4.1$age)
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 1.00   26.00   34.00   36.56   45.00  107.00 
+
+# reploting deaths by age, since age is numeric, fill doesn't work the same :(
+pdf("figures/Deaths_By_Age")
+deaths_by_age_2.qplot <- qplot(age, data = mpv_4.1, color = "black", fill = "white")
+dev.off()
+
+deaths_by_age_2.qplot # why are my colors always weird?
 
 
 #p <- ggplot(mpv_4, aes(x = age)) + 
@@ -154,9 +170,7 @@ mean(mpv_4$age) # works
 
 
 
-summary(mpv_2$age)
-#  Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# 1.00   20.00   28.00   31.55   40.00   88.00      11 
+
 
 p <- ggplot(mpv_4, aes(x = age)) + 
     geom_histogram(aes(y = ..ncount..)) +
@@ -181,4 +195,44 @@ hist.1a <- ggplot(df1, aes(x = v)) +
     geom_histogram(aes(y = ..count..), breaks = b1, 
     fill = "blue", color = "black") + 
     geom_density(aes(y = ..density..*(164*0.1)))
+
+
+# deaths by gender
+# 5 gender categories:"Male", Female", NA, "Transgender", & "Unknown" 
+
+class(mpv_2$gender) #is a character, should probably make it a factor
+mpv_2$gender <- as.factor(mpv_2$gender) # now it's a factor
+
+pdf("figures/Deaths_By_Gender")
+deaths_by_gender.qplot <- qplot(gender, data = mpv_2, fill = gender)
+dev.off()
+
+deaths_by_gender.qplot # looks good, but consider putting %'s on each column
+
+
+# deaths by date
+
+pdf("figures/Deaths_By_Date")
+deaths_by_date.qplot <- qplot(date, data = mpv_2)
+dev.off()
+
+deaths_by_date.qplot # break down my year & by month
+
+
+# deaths by city - too big
+
+pdf("figures/Deaths_By_City")
+deaths_by_city.qplot <- qplot(city, data = mpv_2)
+dev.off()
+
+deaths_by_city.qplot
+
+# deaths by state
+
+pdf("figures/Deaths_By_State")
+deaths_by_state.qplot <- qplot(state, data = mpv_2)
+dev.off()
+
+deaths_by_state.qplot
+
                    
