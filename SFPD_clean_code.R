@@ -170,20 +170,39 @@ deaths_by_age_2.qplot # why are my colors always weird?
 
 
 
+str(mpv_4.1) #4564 obs. of 19 variables, but what should binwindth be?
 
-
-p <- ggplot(mpv_4, aes(x = age)) + 
+p <- ggplot(mpv_4.1, aes(x = age)) + 
     geom_histogram(aes(y = ..ncount..)) +
     geom_density(aes(y = ..scaled..)) +
-    stat_function(fun = dnorm, colour = "red", arg = list(mean = mean(mpv_4$age,
+    stat_function(fun = dnorm, colour = "red", args = list(mean = mean(mpv_4.1$age,
             na.rm = TRUE),
-            sd = sd(mpv_4$age, na.rm = TRUE))) 
+            sd = sd(mpv_4.1$age, na.rm = TRUE))) 
+
+
+# help lab
+
+ggplot(mpv_4.1, aes(x = age)) + 
+    geom_histogram(aes(y = (..density..))) +
+    geom_density() +
+    stat_function(fun = dnorm, colour = "red", args = list(mean = mean(mpv_4.1$age,
+                                                                       na.rm = TRUE),
+                                                           sd = sd(mpv_4.1$age, na.rm = TRUE))) 
+
+
+ggplot(mpv_4.1, aes(x = age)) + 
+    geom_density() +
+    stat_function(fun = dnorm, colour = "red", args = list(mean = mean(mpv_4.1$age,
+                                                                       na.rm = TRUE),
+                                                           sd = sd(mpv_4.1$age, na.rm = TRUE))) 
+
+
 
 p # this took a really long time to figure out
 
+mean(mpv_4.1$age)
 
-
-# TRY THIS NEXT (but don't spend too much time - also look for inspo):
+# TRY THIS NEXT (but don't spend too much time):
 
 #In this case, with N = 164 and the bin width as 0.1, the aesthetic for y in the smoothed line should be:
      y = ..density..*(164 * 0.1)
@@ -195,6 +214,7 @@ hist.1a <- ggplot(df1, aes(x = v)) +
     geom_histogram(aes(y = ..count..), breaks = b1, 
     fill = "blue", color = "black") + 
     geom_density(aes(y = ..density..*(164*0.1)))
+
 
 
 # deaths by gender
@@ -221,18 +241,32 @@ deaths_by_date.qplot # break down my year & by month
 
 # deaths by city - too big
 
-pdf("figures/Deaths_By_City")
-deaths_by_city.qplot <- qplot(city, data = mpv_2)
-dev.off()
+#pdf("figures/Deaths_By_City")
+#deaths_by_city.qplot <- qplot(city, data = mpv_2)
+#dev.off()
 
-deaths_by_city.qplot
+#deaths_by_city.qplot
 
 # deaths by state
 
 pdf("figures/Deaths_By_State")
-deaths_by_state.qplot <- qplot(state, data = mpv_2)
+deaths_by_state.qplot <- qplot(state, data = mpv_2, fill = state)
 dev.off()
 
-deaths_by_state.qplot
+deaths_by_state.qplot # CA is by far the highest, about twice as many deaths as 
+# the second highest
+
+# Maybe do something w/ zip codes just in CA? about 4638 for US
+str(mpv_2$zip_code)
+
+CA <- filter(mpv_2, state == "CA")
+str(CA) # 764 obs.
+CA # that's do-able
+
+library(base) # need this for 
+zip_CA <-arrange(CA, desc(zip_code))
+View(zip_CA)
+
+
 
                    
