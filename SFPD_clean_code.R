@@ -264,8 +264,69 @@ str(CA) # 764 obs.
 CA # that's do-able
 
 library(base) # need this for 
-zip_CA <-arrange(CA, desc(zip_code))
-View(zip_CA)
+zip_CA <-arrange(CA, desc(zip_code)) 
+# thinking this may be useful for identifying racially divided neighborhoods
+View(zip_CA) # would like to plot this like a heat map
+
+
+# deaths by agency 
+
+summary(mpv_2$agency_responsible) #4638 obs., character
+summary(unique(mpv_2$agency_responsible)) # 2091 obs., character
+
+# try just looking at CA?
+CA # 764 obs., from zip_code (above)
+
+CA_agency <- arrange(CA, agency_responsible)
+
+ggplot(CA_agency, aes(agency_responsible)) + geom_bar() # crappy looking but informative
+# there are definately a few outlier agencies in CA - I'm guessing these are in
+# cities w/ larger populations??
+
+
+
+
+# cause of death
+
+unique(mpv_2$cause_of_death)
+# 47 causes of death categoreis with obvious overlap
+
+# first I'm going to have to combine some categories
+
+# what's in "Other"?
+head(filter(mpv_2, cause_of_death == "Other")) # just one: Micah Xavier Johnson
+Micah <- filter(mpv_2, name =="Micah Xavier Johnson")
+why_Micah <- select(Micah, -(age:cause_of_death), -(link_news_doc))
+print(why_Micah$description)
+
+#[1] "Johnson killed five and wounded seven police officers and wounded two 
+#non-police at an anti-violence protest, police said. Police killed him with a 
+#robot with a bomb on it. More police died in the attack than any since 
+#Sept. 11, 2001."
+
+# so in this dataset "Other" = robot bomb
+
+
+
+# Uspecified COD categories - cause of death is unknown, undetermined, etc.
+
+mpv_2$cause_of_death <-gsub("unknown|Undetermined|Unknown|Unreleased",
+                            "Unspecified", mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # only 43 unique catagories; it worked
+
+
+# Taser COD categories
+
+# "Taser" "Bean bag" "Bean bag, taser" 
+
+# for catagories w/ multiple COD, I did my best to read through the COD description
+# & find the leading COD. 
+# Examples: "Taser/Pepper spray/beaten" & "Gunshot, Taser, Pepper spray"     
+
+
+
+
 
 
 
