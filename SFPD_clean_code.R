@@ -293,20 +293,6 @@ unique(mpv_2$cause_of_death)
 
 # first I'm going to have to combine some categories
 
-# what's in "Other"?
-head(filter(mpv_2, cause_of_death == "Other")) # just one: Micah Xavier Johnson
-Micah <- filter(mpv_2, name =="Micah Xavier Johnson")
-why_Micah <- select(Micah, -(age:cause_of_death), -(link_news_doc))
-print(why_Micah$description)
-
-#[1] "Johnson killed five and wounded seven police officers and wounded two 
-#non-police at an anti-violence protest, police said. Police killed him with a 
-#robot with a bomb on it. More police died in the attack than any since 
-#Sept. 11, 2001."
-
-# so in this dataset "Other" = robot bomb
-
-
 
 # Uspecified COD categories - cause of death is unknown, undetermined, etc.
 
@@ -360,4 +346,39 @@ unique(mpv_2$cause_of_death) # 23 unique COD
 
 
 
-                    
+
+# Vehicle COD categories
+
+#  Wow, several of these are where cops are just hitting pedestrians 
+# (otherwise, mostly chases ending in crashes)
+
+mpv_2$cause_of_death <- gsub("Vehicle|Struck by vehicle", "Vehicle",
+                             mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # 22 unique COD
+
+
+# Other COD Categories - only one incident
+
+head(filter(mpv_2, cause_of_death == "Other")) # Micah Xavier Johnson
+Micah <- filter(mpv_2, name =="Micah Xavier Johnson")
+why_Micah <- select(Micah, -(age:cause_of_death), -(link_news_doc))
+print(why_Micah$description) # I remember seeing this in the news
+
+#[1] "Johnson killed five and wounded seven police officers and wounded two 
+#non-police at an anti-violence protest, police said. Police killed him with a 
+#robot with a bomb on it. More police died in the attack than any since 
+#Sept. 11, 2001."
+
+# so in this dataset "Other" = robot bomb
+
+mpv_2$cause_of_death <- gsub("Other", "Robot Bomb", mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # still 22 unique categores
+
+
+# Medical Emergency COD categories
+
+mpv_2$cause_of_death <- gsub(
+
+
