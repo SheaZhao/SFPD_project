@@ -374,10 +374,28 @@ print(why_Micah$description) # I remember seeing this in the news
 
 mpv_2$cause_of_death <- gsub("Other", "Robot Bomb", mpv_2$cause_of_death)
 
-unique(mpv_2$cause_of_death) # still 22 unique categores
+unique(mpv_2$cause_of_death) # still 22 unique categories
 
 
 # Medical Emergency COD categories
+
+mpv_2$cause_of_death <- gsub("Medical emergency|Medical emergency, Unspecified|Medical emergencys",
+                             "Medical Emergency", mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # 19 unique categories
+
+
+# Pepper Spray COD categories
+
+# VERY suspicious as a COD b/c pepper spray is non-lethal
+# plus, descriptions of death indicate other more likely causes of death
+
+mpv_2$cause_of_death <- gsub("Pepper spray", "Pepper Spray", mpv_2$cause_of_death)    
+    
+unique(mpv_2$cause_of_death) # 18 unique categories
+
+
+# Drowning COD categories
 
 mpv_2$cause_of_death <- gsub(
 
