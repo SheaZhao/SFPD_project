@@ -316,18 +316,48 @@ mpv_2$cause_of_death <-gsub("unknown|Undetermined|Unknown|Unreleased",
 unique(mpv_2$cause_of_death) # only 43 unique catagories; it worked
 
 
-# Taser COD categories
+# Taser COD categories - it seems like a lot of the taser/beating overlap COD were older
 
-# "Taser" "Bean bag" "Bean bag, taser" 
+mpv_2$cause_of_death <- gsub( "Taser|Bean bag|Bean bag, taser|Taser, 
+                              Medical emergency|Tasered|Taser,
+                              Beaten|Taser/Pepper spray/beaten|Pepper sprayed,
+                              Taser, Beaten|Taser, Beaten|Taser, Physical Restraint", 
+                              "Taser", mpv_2$cause_of_death)
 
-# for catagories w/ multiple COD, I did my best to read through the COD description
+unique(mpv_2$cause_of_death) # 35 unique catogories
+
+
+
+# NOTE: for catagories w/ multiple COD, I did my best to read through the COD description
 # & find the leading COD. 
 # Examples: "Taser/Pepper spray/beaten" & "Gunshot, Taser, Pepper spray"     
 
 
 
+# Beaten COD categories
+
+mpv_2$cause_of_death <- gsub("Beating|Baton, Pepper Spray, Physical Restraint",
+                             "Beaten", mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # 33 unique COD
+
+
+# Gunshot COD categories
+
+mpv_2$cause_of_death <- gsub("Gunshot, Taser|Gunshot, Vehicle|Gunshot, Stabbed|Gunshot, Taser, Pepper spray",
+                             "Gunshot", mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # 29 unique COD
 
 
 
+# Physical restraint & asphyxiation COD categories
 
-                   
+mpv_2$cause_of_death <- gsub("Physical Restraint|Asphyxiated/Restrained|Death in custody|Physical restraint|Death in Custody|Asphyxiated|Asphyxiation",
+                             "Physical Restraint/Asphyxiation", mpv_2$cause_of_death)
+                             
+unique(mpv_2$cause_of_death) # 23 unique COD
+
+
+
+                    
