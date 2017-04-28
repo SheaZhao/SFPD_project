@@ -397,6 +397,42 @@ unique(mpv_2$cause_of_death) # 18 unique categories
 
 # Drowning COD categories
 
-mpv_2$cause_of_death <- gsub(
+# "Drowned" was one incident that probably should be reclassified as neglect:
+# Brandon Ellingson
+
+# A state trooper handcuffed and arrested Brandon Ellingson for boating while 
+# intoxicated. The state trooper handcuffed Ellingson and put the wrong type of 
+# life jacket on him. Ellingson drowned in the lake.
+
+
+mpv_2$cause_of_death <- gsub("Drowned", "Drowning", mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # 17 unique categories
+
+
+# Smoke inhilation - one incident: Aaron Dumas 
+
+# Killed when tactical officers of the Memphis police department threw tear gas
+# chemicals into the house where they had chased Dumas, causing the house to 
+# catch on fire, and burning him alive. Several neighbors had their house 
+# damaged by the flames.
+
+
+# Hanging - one incident: Zachary Goldson, no description in dataset
+# Internet search: COD was strangulation; being investigated as homicide
+# http://www.walb.com/story/24133833/death-of-brown-county-inmate-zachary-goldson-ruled-a-homicide
+
+# Negligence & Neglect COD categories - will likely add more incidences to this
+
+mpv_2$cause_of_death <- gsub("Negligence, failure to call paramedics when subject could not breathe due to asthma|Neglect",
+                             "Negligence/Neglect", mpv_2$cause_of_death)
+
+unique(mpv_2$cause_of_death) # 16 unique COD categories
+
+
+
+
+
+
 
 
