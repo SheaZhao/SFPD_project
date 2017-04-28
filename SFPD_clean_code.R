@@ -431,8 +431,72 @@ unique(mpv_2$cause_of_death) # 16 unique COD categories
 
 
 
+## charges_brought categories####
+
+# examines whether crimal charges were brought 
+    # against victom or police?
+
+# Originally 12 subcategories
+#collapsing into "charged", "convicted_sentenced", "acquitted", "mistrial" or 
+# "No Known Charges"
+    # At least one of these seems to be charges brought against POLICE OFFICER,
+    # not victom - need to further separate this later
+
+#charged
+
+mpv_2$charges_brought <- gsub("Charged with a crime", "charged", 
+                              mpv_2$charges_brought)
+
+unique(mpv_2$charges_brought) # 12 unique subcategories
+
+# convicted_sentenced
+# had trouble doing this all at once, so had to collapse a 1-2 at a time
+
+mpv_2$charges_brought <- gsub(
+"Charged, Convicted, Sentenced to 5 years in prison|Charged, Convicted to 2.5 years in prison",
+                              "convicted_sentenced", mpv_2$charges_brought)
+
+mpv_2$charges_brought <- gsub("Charged, Convicted, Sentenced to 4 years|Charged, Convicted, Sentenced to 6 years",
+                              "convicted_sentenced", mpv_2$charges_brought) 
+
+
+# this one is not collapsing 
+mpv_2$charges_brought <- gsub(
+"Charged, Convicted (two officers) of cruelty to an inmate, 
+public records fraud, and perjury. Sentenced to one month in jail and three years’ probation",
+"convicted_sentenced", mpv_2$charges_brought)
+
+mpv_2$charges_brought <- gsub("Charged, Convicted, Sentenced to 5 years probation.|Charged, Convicted,
+                              Sentenced to 18 months",
+                              "convicted_sentenced", mpv_2$charges_brought)
+
+mpv_2$charges_brought <- gsub("Charged, Convicted, Sentenced to 50 years",
+                              "convicted_sentenced", mpv_2$charges_brought)
+                              
+
+
+unique(mpv_2$charges_brought)
+
+
+# acquitted
+
+# messed this up - accidently had "convicted_sentenced" instead of"aquitted"
+# need to reload data to update
+
+mpv_2$charges_brought <- gsub("Charged, Acquitted", "acquitted", 
+                              mpv_2$charges_brought)
+
+
+unique(mpv_2$charges_brought)
 
 
 
+# mistrial
+mpv_2$charges_brought <- gsub("charged, Mistrial declared", "mistrial",
+                              mpv_2$charges_brought)
 
+unique(mpv_2$charges_brought)
+
+
+# "No Known Charges" - no collapsing needed, but check to see if victom or police
 
