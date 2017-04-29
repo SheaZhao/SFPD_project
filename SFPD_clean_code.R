@@ -87,6 +87,8 @@ colnames(mpv_2) # it works
 # now I can begin to sort the Monitoring Polic Violence data before I graph it
 # first, how many different subsets for each variable are working with?
 
+
+
 unique(mpv_2$gender) 
 # 5 gender categories:"Male", Female", NA, "Transgender", & "Unknown" 
 
@@ -284,7 +286,7 @@ ggplot(CA_agency, aes(agency_responsible)) + geom_bar() # crappy looking but inf
 # cities w/ larger populations??
 
 
-
+## Collapsing Variable Sub-Categories ####
 
 # cause of death
 
