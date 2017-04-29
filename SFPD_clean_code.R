@@ -500,3 +500,67 @@ unique(mpv_2$charges_brought)
 
 # "No Known Charges" - no collapsing needed, but check to see if victom or police
 
+
+
+## Mental Illness variable ####
+
+# > unique(mpv_2$mental_illness) 
+# "Unknown"             "Yes"                 "Drug or alcohol use" "No"                 
+# NA                    "yes"                 "Unknown "            "unknown" 
+
+# 237 classifications of "Drug or alcohol use" under the mental_illness variable
+# I will make another variable using tidyr for this b/c it doesn't belong here
+
+# Unknown subcategory
+
+mpv_2$mental_illness <- gsub("Unknown |unknown", "Unknown",
+                              mpv_2$mental_illness)
+
+
+
+unique(mpv_2$mental_illness) # collapsed from 8 to 6 subcategories
+
+
+# Yes subcategory
+
+mpv_2$mental_illness <- gsub("yes", "Yes",
+                             mpv_2$mental_illness)
+
+unique(mpv_2$mental_illness) # 5 subcategories
+
+
+
+# what are these NA's?
+MI_NA <- select(mpv_2, (mental_illness), -(name:link_news_doc))
+MI_NA
+tail(MI_NA)
+unique(MI_NA) # NA's are listed as: <NA>
+
+
+MI_justNA <- filter(mpv_2, mental_illness != "Yes | No | Drug or alcohol use | Unknown")
+MI_justNA <- filter(mpv_2, mental_illness == "NA")
+
+View(MI_justNA) # don't know what's happening here; try tidyr
+
+
+
+## armed_unarmed variable ####
+
+# seems fine:
+# unique(mpv_2$armed_unarmed)
+# [1] "Unarmed"         "Allegedly Armed" "Unclear"         "Vehicle"
+
+
+
+## gender variable ####
+
+unique(mpv_2$gender)
+# [1] Male        Female      <NA>        Transgender Unknown    
+# Levels: Female Male Transgender Unknown
+
+# so I have 4 subcategories that I'm happy w/, but need to do something with the NA's
+    # maybe add them to Unknown?
+
+
+
+
