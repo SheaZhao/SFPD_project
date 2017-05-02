@@ -18,10 +18,8 @@ unique(mpv_2$cause_of_death) # only 43 unique catagories; it worked
 
 # Taser COD categories - it seems like a lot of the taser/beating overlap COD were older
 
-mpv_2$cause_of_death <- gsub( "Taser|Bean bag|Bean bag, taser|Taser, 
-                              Medical emergency|Tasered|Taser,
-                              Beaten|Taser/Pepper spray/beaten|Pepper sprayed,
-                              Taser, Beaten|Taser, Beaten|Taser, Physical Restraint", 
+mpv_2$cause_of_death <- gsub( "Taser|Bean bag|Bean bag, taser|Taser, Medical Emergency|Tasered|Taser,
+                              Beaten|Taser/Pepper spray/beaten|Pepper Sprayed, Taser, beaten|Taser, Beaten|Taser, Physical Restraint", 
                               "Taser", mpv_2$cause_of_death)
 
 unique(mpv_2$cause_of_death) # 35 unique catogories
