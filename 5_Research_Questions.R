@@ -266,3 +266,33 @@ races_armed.ggvis
 # mental illness - if time
 # intoxication/drugs - if time
 
+
+
+## Exporting Data for Group ####
+
+# write csv files for the following:
+deaths_by_race
+deaths_by_race.2
+race_COD_temp
+race_COD_temp_2
+mpv_2
+race_COD
+race_COD_spread
+armed_unarmed_deaths
+races_armed
+
+write.csv(deaths_by_race, file = "deaths_by_race.csv", row.names = FALSE)
+write.csv(deaths_by_race.2, file = "deaths_by_race.2.csv", row.names = FALSE)
+write.csv(race_COD_temp, file = "race_COD_temp.csv", row.names = FALSE)
+write.csv(race_COD_temp_2, file = "race_COD_temp_2.csv", row.names = FALSE)
+write.csv(mpv_2, file = "mpv_2.csv", row.names = FALSE)
+write.csv(race_COD, file = "race_COD.csv", row.names = FALSE)
+write.csv(race_COD_spread, file = "race_COD_spread.csv", row.names = FALSE)
+write.csv(armed_unarmed_deaths, file = "armed_unarmed_deaths.csv", row.names = FALSE)
+write.csv(races_armed, file = "races_armed.csv", row.names = FALSE)
+
+
+
+
+
+
