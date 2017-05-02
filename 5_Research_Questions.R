@@ -171,6 +171,87 @@ non_Gun.ggvis # much better!
 
 ## armed deaths vs unarmed deaths ####
 
+# > unique(mpv_2$armed_unarmed)
+# [1] "Unarmed"         "Allegedly Armed" "Unclear"         "Vehicle"  
+
+# group by armed_unarmed sub-category
+armed_unarmed_deaths <- mpv_2 %>%
+    group_by(armed_unarmed, race) %>%
+    summarise(n = n()) %>%
+    mutate(freq = n / sum(n))
+View(armed_unarmed_deaths)
+
+
+# plot armed vs. unarmed by freq, fill = race
+armed_unarmed_deaths.ggvis <- armed_unarmed_deaths %>%
+    ggvis(x = ~armed_unarmed, y = ~freq, fill = ~race) 
+armed_unarmed_deaths.ggvis
+# White's overwhelmingly armed
+
+
+
+# group by race
+races_armed <- spread(armed_unarmed_deaths, race, freq)
+View(races_armed)
+
+
+# plot armed vs. unarmed by race
+
+# Asians
+races_armed.ggvis <- races_armed %>%
+    ggvis(x = ~armed_unarmed, y = ~Asian, fill = ~armed_unarmed) 
+races_armed.ggvis
+# Asians have high allegedly armed & unclear
+# about 10% were in a vehicle & about 5% were unarmed 
+# about 15% die by gunshot
+
+
+# Blacks
+races_armed.ggvis <- races_armed %>%
+    ggvis(x = ~armed_unarmed, y = ~Black, fill = ~armed_unarmed) 
+races_armed.ggvis
+# Blacks are highly unarmed, in a vehicle, or unclear
+# less than 25% are armed
+# about 17% die by gunshot
+
+
+# Hispanics
+races_armed.ggvis <- races_armed %>%
+    ggvis(x = ~armed_unarmed, y = ~Hispanic, fill = ~armed_unarmed) 
+races_armed.ggvis
+# Hispanics are mostly in the unclear, 
+# with about 15%, 16%, & 17% allegedly armed, unarmed, or vehicle, respectively
+# between 11-12% die of gunshots
+
+
+# Native Americans
+races_armed.ggvis <- races_armed %>%
+    ggvis(x = ~armed_unarmed, y = ~Native Americans, fill = ~armed_unarmed) 
+races_armed.ggvis
+# Native Americans are classified as about 21.5% unclear
+# about 16% Allegedly armed, 17% unclear, 13% vehicle
+# about 9.5% die of gunshot
+
+
+# Pacific Islander
+races_armed.ggvis <- races_armed %>%
+    ggvis(x = ~armed_unarmed, y = ~`Pacific Islander`, fill = ~armed_unarmed) 
+races_armed.ggvis
+# Pacific Islanders are mostly in Vehicles when they die
+# have the highest rates of death by gunshot
+
+# Unknown races
+races_armed.ggvis <- races_armed %>%
+    ggvis(x = ~armed_unarmed, y = ~`Unknown race`, fill = ~armed_unarmed) 
+races_armed.ggvis
+# highly alleged to be armed or are in a vehicle
+
+
+#Whites
+races_armed.ggvis <- races_armed %>%
+    ggvis(x = ~armed_unarmed, y = ~White, fill = ~armed_unarmed) 
+races_armed.ggvis
+# whites are highly armed, but little variation between unarmed, unclear, & vehicle
 
 
 
@@ -184,3 +265,4 @@ non_Gun.ggvis # much better!
 # armed or unarmed?
 # mental illness - if time
 # intoxication/drugs - if time
+
