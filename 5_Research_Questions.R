@@ -55,6 +55,13 @@ View(race_by_COD)
 race_COD_spread <- spread(race_by_COD,cause_of_death, freq)
 View(race_COD_spread)  
 
+# variable names not right - fixed
+race_COD$cause_of_death[grep("Physical ", race_COD$cause_of_death)] <- "Physical Restraint/Asphyxiation"
+
+race_COD$cause_of_death[grep("Negligence/Negligence/Neglect", race_COD$cause_of_death)] <- "Negligence/Neglect"
+
+
+
 ## each COD ploted by freq, fill = race ####
 
 # plot Gunshot freq by race    
@@ -190,12 +197,12 @@ armed_unarmed_deaths.ggvis
 
 
 
-# group by race
+# group by race 
 races_armed <- spread(armed_unarmed_deaths, race, freq)
 View(races_armed)
 
 
-# plot armed vs. unarmed by race
+# plot armed vs. unarmed by race - plot w/ all races in it much more useful
 
 # Asians
 races_armed.ggvis <- races_armed %>%
@@ -260,7 +267,8 @@ races_armed.ggvis
 ## mental illness related deaths ####
 ## intoxication related deaths ####
 ## ratio of children killed ####
-## Deeper look into pepper spray deaths ####
+## charges brought ####
+## Deeper look into pepper spray deaths & vehicle COD####
 
 # armed or unarmed?
 # mental illness - if time
@@ -290,6 +298,8 @@ write.csv(race_COD, file = "race_COD.csv", row.names = FALSE)
 write.csv(race_COD_spread, file = "race_COD_spread.csv", row.names = FALSE)
 write.csv(armed_unarmed_deaths, file = "armed_unarmed_deaths.csv", row.names = FALSE)
 write.csv(races_armed, file = "races_armed.csv", row.names = FALSE)
+
+
 
 
 

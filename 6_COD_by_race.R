@@ -67,12 +67,22 @@ deaths_by_race.2.ggvis
 
         
 # Do deaths differ by race?
+    # YES
             
 # Are the correlations between COD & race?
+        # Plot correlations, preferably w/ regression line
         # If correlations exist, what could this disparity mean?
 
 # Does being armed or unarmed have any impact on death?
-        # what about COD?
-        # stratify armed/unarmed by race & COD.
+    # some races seem more likely to be armed - Whites & Blacks
+    # some races seem more likely to be killed regardless of being armed - Blacks   
+        # is there a correlation between being race + armed/unarmed & COD?
 
+# Further analyze pepper spray deaths
+    # Maybe just do some external research - does pepper spray kill??
 
+# Charges brought? - needs more cleaning
+    # unclear who's being charged - police or victim?
+
+# Vehicle deaths - lot's of people just ran over by police
+    # need to filter this into at least two sub-categories: crash & run over

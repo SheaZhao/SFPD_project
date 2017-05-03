@@ -56,6 +56,12 @@ mpv_2$cause_of_death <- gsub("Physical Restraint|Asphyxiated/Restrained|Death in
 
 unique(mpv_2$cause_of_death) # 23 unique COD
 
+# didn't work quite right - needed grep
+mpv_2$cause_of_death[grep("Physical Restraint", mpv_2$cause_of_death)] <- "Physical Restraint/Asphyxiation"
+
+mpv_2$cause_of_death[grep("Asphyxiated ", mpv_2$cause_of_death)] <- "Physical Restraint/Asphyxiation"
+
+mpv_2$cause_of_death[grep("Physical Restraint/Asphyxiation/Physical Restraint/Asphyxiation", mpv_2$cause_of_death)] <- "Physical Restraint/Asphyxiation"
 
 
 
@@ -191,6 +197,10 @@ mpv_2$charges_brought <- gsub("Charged, Convicted, Sentenced to 50 years",
 
 
 unique(mpv_2$charges_brought)
+
+# walk in help
+grep() 
+mpv_2$charges_brought[grep("Charged, ", mpv_2$charges_brought)] <- "convicted_sentenced"
 
 
 

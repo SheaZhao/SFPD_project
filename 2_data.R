@@ -27,7 +27,7 @@ names(mpv) <- c("name", "age", "gender", "race", "URL", "date", "address",
                 "empty_44","empty_45","empty_46"
 )
 
-colnames(mpv) # it worked
+colnames(mpv) # it worked - FOUND A BETTER WAY TO DO THIS WITH tidyr  :/
 
 
 
