@@ -11,7 +11,8 @@ installed.packages() # show loaded packages - optional
 
 
 ## Import Data ####
-# You will need to download the following datasets & then load them into rstudio
+# You will need to download the following datasets & then load them into rstudio:
+    # https://www.dropbox.com/sh/5ll7c9jivtva5zm/AABiO3GM9iTMN1Uv9Gl8yFG8a?dl=0
 
 # these will be used to look at deaths by race, regardless of COD
 deaths_by_race  # shows races & death counts
