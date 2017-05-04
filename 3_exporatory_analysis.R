@@ -141,6 +141,7 @@ summary(unique(mpv_2$agency_responsible)) # 2091 unique obs., character
 
 # try just looking at CA?
 CA # 764 obs., from zip_code (above)
+CA$agency_responsible
 
 CA_agency <- arrange(CA, agency_responsible)
 
