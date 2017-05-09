@@ -41,10 +41,29 @@ age_race_freq <- mpv_4.2 %>%
     mutate(freq = n/sum(n))
 View(age_race_freq)
 
+# For freq deaths by race w/ continuious age, use deaths_by_race.3
+deaths_by_race.3 <- mpv_4.1 %>%
+    group_by(race, age) %>%
+    summarise(n = n()) %>%
+    mutate(freq = n / sum(n))
+View(deaths_by_race.3)
+colnames(deaths_by_race.3)
+
 # may need to take the log of freq
-qplot(data = age_race_freq, age, freq, color = race, size = freq) # nice
-qplot(data = age_race_freq, race, age, color = race, size = freq)
-qplot(data = age_race_freq, age, freq, facets = .~ race) 
+qplot(data = deaths_by_race.3, age, freq, geom = c("point", "smooth"))
+qplot(data = deaths_by_race.3, age, freq, geom = c("point", "smooth"), method = "lm")
+qplot(data = deaths_by_race.3, age, freq, color = race, geom = "smooth", se = FALSE)
+qplot(data = deaths_by_race.3, age, freq, color = race, geom = "smooth", method = "lm", se = FALSE)
+#qplot(data = deaths_by_race.3, age, freq, facets = .~ race, color = race, geom = c("point", "smooth"))
+#qplot(data = deaths_by_race.3, age, freq, facets = race ~., color = race, geom = c("point", "smooth"))
+#qplot(data = age_race_freq, age, freq, color = race, size = freq) # nice
+#qplot(data = age_race_freq, race, age, color = race, size = freq)
+#qplot(data = age_race_freq, race, freq, facets = .~ age, color = race, size = freq) # nice
+
+# CANNOT MAKE A BOXPLOT -let's plot age ranges against freq using box plots
+#qplot(data = age_race_freq, aes(x = race, y = freq ) + geom_boxplot())
+# boxplot(mpv_2$race)
+    #maybe try logs?
 
 
 
