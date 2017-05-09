@@ -34,9 +34,17 @@ qplot(data = WBH_race_age, age, fill = age,
 qplot(data = Other_race_age, age, fill = age,
       facets = race~.)
 
-# I should change the death counts to death frequency
+# I should change the death counts to death frequency - then I can view all races at once
+age_race_freq <- mpv_4.2 %>%
+    group_by(race, age) %>%
+    summarise(n = n()) %>%
+    mutate(freq = n/sum(n))
+View(age_race_freq)
 
-
+# may need to take the log of freq
+qplot(data = age_race_freq, age, freq, color = race, size = freq) # nice
+qplot(data = age_race_freq, race, age, color = race, size = freq)
+qplot(data = age_race_freq, age, freq, facets = .~ race) 
 
 
 
