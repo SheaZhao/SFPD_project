@@ -1,4 +1,4 @@
-# deaths by age, fill & facet race - cut() into age groups first
+## deaths by age, fill & facet race - cut() into age groups first ####
     # box plot for age categories
     # lm for facets
 
@@ -67,11 +67,55 @@ qplot(data = deaths_by_race.3, age, freq, color = race, geom = "smooth", method 
 
 
 
-# deaths by armed/unarmed, fill & facet race
+## deaths by armed/unarmed, fill & facet race ####
     # box plot for armed categories
     # lm for facets
 
-# COD by race, fill & facet by race
+ggplot(mpv_4.1, aes(armed_unarmed, age)) +
+    geom_violin(scale = "area")
+
+ggplot(mpv_4.1, aes(armed_unarmed, age, fill = armed_unarmed)) +
+    geom_violin(scale = "area") +
+    facet_grid(.~race)
+
+ggplot(mpv_4.1, aes(armed_unarmed, age, fill = armed_unarmed)) +
+    geom_boxplot()
+
+# separate armed_unarmed levels, then plot by race
+ggplot(mpv_4.1, aes(race, age, fill = race)) +
+    geom_boxplot() + 
+    facet_grid(armed_unarmed~.)
+
+ggplot(mpv_4.1, aes(armed_unarmed, age, fill = armed_unarmed)) +
+    geom_boxplot() +
+    facet_grid(.~race)
+
+
+armed_BY_race_age <- mpv_4.1 %>%
+    group_by(armed_unarmed, race, age) %>%
+    summarise(n = n()) %>%
+    mutate(freq = n / sum(n))
+View(armed_BY_race_age)
+colnames(armed_BY_race_age)
+
+ggplot(armed_BY_race_age, aes(age, freq)) +
+    coord_cartesian(ylim = c(0, .3)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    facet_grid(armed_unarmed~race)
+
+
+## COD by race, fill & facet by race ####
     # box plot for COD, fill = race
     # lm for facets
+
+ggplot(mpv_4.1, aes(cause_of_death, age, fill = cause_of_death)) +
+    geom_violin(scale = "area")
+
+ggplot(mpv_4.1, aes(cause_of_death, age, fill = cause_of_death)) +
+    geom_boxplot()
+
+#ggplot(mpv_4.1, aes(cause_of_death, age, fill = cause_of_death)) +
+    #geom_boxplot() +
+    #facet_grid(armed_unarmed~race)
 
