@@ -41,6 +41,12 @@ View(young_adult_deaths)
 # again young adult blacks are have higher incidence of being killed by cops
 # the disparity of deaths amoungst young Black adults increases greatly from child deaths
 
+#plot
+young_adult_deaths.ggvis <- young_adult_deaths %>%
+    ggvis(x = ~race, y = ~freq, fill = ~race) 
+young_adult_deaths.ggvis
+
+
 
 # adults 26-35 - let's just look at every 10 years to see what happens
 mpv_4_26.35 <- filter(mpv_4.1, age == 26:35)
@@ -52,6 +58,12 @@ adult_deaths_26.35 <- mpv_4_26.35 %>%
     mutate(freq = n/ sum(n))
 View(adult_deaths_26.35)
 # very interesting - disparity Black-White deaths is now reversed in just 10 years - did not expect this
+
+#plot
+adult_deaths_26.35.ggvis <- adult_deaths_26.35 %>%
+    ggvis(x = ~race, y = ~freq, fill = ~race) 
+adult_deaths_26.35.ggvis
+
 
 
 # adults 36-45 
@@ -65,6 +77,12 @@ adult_deaths_36.45 <- mpv_4_36.45 %>%
 View(adult_deaths_36.45)
 # Black & Hispanic deaths are decresing in frequency & White deaths are basically constant
 
+#plot
+adult_deaths_36.45.ggvis <- adult_deaths_36.45 %>%
+    ggvis(x = ~race, y = ~freq, fill = ~race) 
+adult_deaths_36.45.ggvis
+
+
 
 # adults 46-55
 mpv_4_46.55 <- filter(mpv_4.1, age == 46:55)
@@ -77,6 +95,11 @@ adult_deaths_46.55 <- mpv_4_46.55 %>%
 View(adult_deaths_46.55)
 # All deaths are declining in frequency
 
+#plot
+adult_deaths_46.55.ggvis <- adult_deaths_46.55 %>%
+    ggvis(x = ~race, y = ~freq, fill = ~race) 
+adult_deaths_46.55.ggvis
+
 
 # adults 56-65
 mpv_4_56.65 <- filter(mpv_4.1, age == 56:65)
@@ -87,6 +110,13 @@ adult_deaths_56.65 <- mpv_4_56.65 %>%
     summarise(n = n()) %>%
     mutate(freq = n/ sum(n))
 View(adult_deaths_56.65)
+
+#plot
+adult_deaths_56.65.ggvis <- adult_deaths_56.65 %>%
+    ggvis(x = ~race, y = ~freq, fill = ~race) 
+adult_deaths_56.65.ggvis
+
+
 
 
 # adults 66+
@@ -100,5 +130,8 @@ adult_deaths_66 <- mpv_4_66 %>%
 View(adult_deaths_66)
 # about 67% white
 
-
+#plot
+adult_deaths_66.ggvis <- adult_deaths_66 %>%
+    ggvis(x = ~race, y = ~freq, fill = ~race) 
+adult_deaths_66.ggvis
 
