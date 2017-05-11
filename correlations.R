@@ -57,6 +57,8 @@ qplot(data = deaths_by_race.3, age, freq, color = race, geom = "smooth", method 
 #qplot(data = deaths_by_race.3, age, freq, facets = .~ race, color = race, geom = c("point", "smooth"))
 #qplot(data = deaths_by_race.3, age, freq, facets = race ~., color = race, geom = c("point", "smooth"))
 #qplot(data = age_race_freq, age, freq, color = race, size = freq) # nice
+# plot(freq ~ age, data = deaths_by_race.3)
+plot(freq ~ age, data = age_race_freq) #YES
 #qplot(data = age_race_freq, race, age, color = race, size = freq)
 #qplot(data = age_race_freq, race, freq, facets = .~ age, color = race, size = freq) # nice
 
@@ -118,4 +120,5 @@ ggplot(mpv_4.1, aes(cause_of_death, age, fill = cause_of_death)) +
 #ggplot(mpv_4.1, aes(cause_of_death, age, fill = cause_of_death)) +
     #geom_boxplot() +
     #facet_grid(armed_unarmed~race)
+
 
