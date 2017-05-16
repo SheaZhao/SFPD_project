@@ -1,8 +1,10 @@
 ## install & load packages ####
 install.packages("arules")
 install.packages("arulesViz")
+library(arules)
+library(arulesViz)
 
-## load data frames ####
+## load data as sparce matrix & then load data frames ####
 
 # Age numeric w/ no missing values
 mpv_4 <- filter(mpv_2, !is.na(age))
@@ -22,7 +24,46 @@ mpv_4.2$age <- cut(mpv_4.2$age,
 levels(mpv_4.2$age)
 View(mpv_4.2$age)
 
+# make 4.1 & 4.2 csv's so I can import them as sparce matrisis
+write.csv(mpv_4.1, file = "mpv_4.1.csv", row.names = FALSE)
+write.csv(mpv_4.2, file = "mpv_4.2.csv", row.names = FALSE)
+
+# reload data as sparce matrisis
+# path: ~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_4.1.csv
+
+spar_trix_4.1 <- read.transactions("~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_4.1.csv", sep = ",")
+spar_trix_4.2 <- read.transactions("~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_4.2.csv", sep = ",")
+
+
+
 ## Data Relationships ####
+
+colnames(mpv_4.2) # can't use this for sparce matrix
+#[1] "name"                   "age"                    "gender"                
+#[4] "race"                   "URL"                    "date"                  
+#[7] "address"                "city"                   "state"                 
+#[10] "zip_code"               "county"                 "agency_responsible"    
+#[13] "cause_of_death"         "description"            "justification_of_death"
+#[16] "charges_brought"        "link_news_doc"          "mental_illness"        
+#[19] "armed_unarmed"   
+
+# need inspectFrequency to look at col.s & rows
+itemFrequency(spar_trix_4.1[, 1]) # all rows, first col.
+
+itemFrequencyPlot(spar_trix_4.1, support = 0.10) # cool!!!
+# items that have a min of 10% support
+
+itemFrequencyPlot(spar_trix_4.1, topN = 20)
+
+itemFrequencyPlot(data, topN = 5) 
+# top items ranked in order! consistent w/ Chaya's findings/data!
+
+
+
+
+
+
+
 
 
 
