@@ -98,9 +98,8 @@ summary(model_4.1)
 
 ## Sort model rules by lift ####
 
-inspect(model_4.1, by = "lift")[1:10] # just look at top 10
-
-
+#inspect(model_4.1, by = "lift")[1:10] # just look at top 10
+inspect(sort(model_4.1, by="lift")[1:100])
 
 
 
