@@ -259,14 +259,25 @@ unique(mpv_2$mental_illness) # 5 subcategories
 # what are these NA's?
 MI_NA <- select(mpv_2, (mental_illness), -(name:link_news_doc))
 MI_NA
-tail(MI_NA)
 unique(MI_NA) # NA's are listed as: <NA>
+tail(MI_NA)
+head(MI_NA)
 
 
-MI_justNA <- filter(mpv_2, mental_illness != "Yes | No | Drug or alcohol use | Unknown")
+MI_justNA <- filter(mpv_2, mental_illness != "Yes" | "No" | "Drug or alcohol use" | "Unknown")
 MI_justNA <- filter(mpv_2, mental_illness == "NA")
 
-View(MI_justNA) # don't know what's happening here; try tidyr
+View(MI_justNA) # don't know what's happening here; try tidyr?
+
+## walk-in consulting help - maybe need to change it to a data frame?
+MI_NA.2 <- as.data.frame(MI_NA)
+head(MI_NA.2) #looks fine
+class(MI_NA.2) # is a data frame
+unique(MI_NA)
+
+MI_whole <- filter(MI_NA.2, !is.na(mental_illness)) # how is mental illness not found?
+MI_whole <- na.omit(MI_NA.2)
+unique(MI_whole)
 
 
 
