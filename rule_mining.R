@@ -1,33 +1,29 @@
 # tutorial: https://www.slideshare.net/rdatamining/association-rule-mining-with-r
 
+# new model
+model_4.3.2 <- apriori(spar_trix_4.3, parameter = list(support=0.007, confidence = 0.10, minlen = 2),
+                       contorl = list(verbose = F),
+                       appearance = list(default = 'none', rhs = c(), lhs = c()))
+
+
+summary(model_4.3.2)
+
 # interpreting rules
-inspect(rules.pruned[1])
+inspect(sort(model_4.3.2, by="lift"))
 
-apriori(data, parameter = NULL, appearance = NULL, control = NULL)
 
-rules <- apriori(titanic.raw, control = list(verbose = F),
-                 parameter = list(minlen = 3, supp = 0.002, conf = 0.2),
-                 appearance = list(default = 'none', rhs = c ("Survided = Yes"),
-                                   lhs = c("Class = 1st", "Class = 2nd", 
-                                           "Class = 3rd", "Age = Child", 
-                                           "Age = Adult")))
-summary(rules)
+# vizualizing rules -- take out all?
 
-rules.sorted <- sort(rules, by = "confidence")
-inspect(rules.sorted)
+plot(model_4.3.2.all) # scatter plot for 27 rules
 
-# vizualizing rules
+plot(model_4.3.2.all, method = "grouped") #clusters matrix
 
-plot(rules.all) # scatter plot for 27 rules
+plot(model_4.3.2.all, method = "graph")
 
-plot(rules.all, method = "grouped") #clusters matrix
-
-plot(rules.all, method = "graph")
-
-plot(rules.all, method = "graph", control = list(type = "items"))
+plot(model_4.3.2.all, method = "graph", control = list(type = "items"))
 
 # parallel coordinates plot for 27 rules
-plot(rules.all, method = "paracoord", control = list(reorder = TRUE))
+plot(model_4.3.2.all, method = "paracoord", control = list(reorder = TRUE))
 
 
 
