@@ -27,7 +27,6 @@ colnames(mpv_4.2) # remove some of these
 #[19] "armed_unarmed"  
 
 # remove some variables
-
 mpv_4.3 <- select(mpv_4.2, - c(name, age, URL, date, zip_code, county, 
                                agency_responsible, description, justification_of_death,
                                charges_brought, link_news_doc, address, gender, 
@@ -35,13 +34,21 @@ mpv_4.3 <- select(mpv_4.2, - c(name, age, URL, date, zip_code, county,
 colnames(mpv_4.3)
 #[1] "race" "city" "state"  "cause_of_death" "armed_unarmed" 
 
+mpv_5 <- select(mpv_4.3, - c(city, state))
+colnames(mpv_5)
+# [1] "race" "cause_of_death" "armed_unarmed" 
+
 
 # make 4.1 & 4.2 csv's so I can import them as sparce matrisis
 write.csv(mpv_4.3, file = "mpv_4.3.csv", row.names = FALSE)
+write.csv(mpv_5, file = "mpv_5.csv", row.names = FALSE)
 
 # reload data as sparce matrisis
 # path: ~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_4.1.csv
 spar_trix_4.3 <- read.transactions("~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_4.3.csv", sep = ",")
+spar_trix_5 <- read.transactions("~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_5.csv", sep = ",")
+
+itemFrequencyPlot(spar_trix_5, support = 0.10) # cool!!!
 
 ## Data Relationships ####
 
