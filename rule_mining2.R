@@ -18,6 +18,9 @@ plot(model_4.3.2, method = "graph") # bubble matrix
 # parallel coordinates plot for rules
 #plot(model_4.3.2, method = "paracoord", control = list(reorder = TRUE))
 
+# use this for lots of variables:
+#plot(model_4.3.2, method = "graph", control = list(type = "itemsets"))
+
 
 # models by race & cause of death
 model_4.3.4 <- apriori(spar_trix_4.3, control = list(verbose =F),
@@ -67,7 +70,11 @@ plot(model_5, method = "graph")
 #plot(model_5, method = "graph", control = list(type = "items"))
 # parallel coordinates plot for rules
 #plot(model_5, method = "paracoord", control = list(reorder = TRUE))
+plot_5 <- plot(model_5, method = "graph", control = list(type = "itemsets"))
 
+# export to Gephi
+saveAsGraph(sort(plot_5, by = "lift", 82), file = "rules.graphviz")
+saveAsGraph(sort(model_5, by = "lift"), file = "plot_5.graphml", type = "itemsets", format = "graphml")
 
 
 #"Taser","Physical Restraint/Asphyxiation","Vehicle","Unspecified","Beaten","Medical Emergency","Robot Bomb","Pepper Spray","Drowning", "Fall to death","Drug Overdose", "Suicide","Smoke inhilation","Hanging","Negligence/Negligence/Neglect

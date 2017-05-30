@@ -38,15 +38,22 @@ mpv_5 <- select(mpv_4.3, - c(city, state))
 colnames(mpv_5)
 # [1] "race" "cause_of_death" "armed_unarmed" 
 
+mpv_6 <- select(mpv_5, - c(armed_unarmed))
+colnames(mpv_6)
+# [1] "race" "cause_of_death"
+
 
 # make 4.1 & 4.2 csv's so I can import them as sparce matrisis
 write.csv(mpv_4.3, file = "mpv_4.3.csv", row.names = FALSE)
 write.csv(mpv_5, file = "mpv_5.csv", row.names = FALSE)
+write.csv(mpv_6, file = "mpv_6.csv", row.names = FALSE)
 
 # reload data as sparce matrisis
 # path: ~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_4.1.csv
 spar_trix_4.3 <- read.transactions("~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_4.3.csv", sep = ",")
 spar_trix_5 <- read.transactions("~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_5.csv", sep = ",")
+spar_trix_6 <- read.transactions("~/Documents/stanford_classes/data_sci/Mapping_Police_Violence/mpv_6.csv", sep = ",")
+
 
 itemFrequencyPlot(spar_trix_5, support = 0.10) # cool!!!
 
@@ -74,7 +81,7 @@ summary(model_4.3) # set of 654 rules
 #inspect(model_4.1, by = "lift")[1:10] # just look at top 10
 inspect(sort(model_4.3, by="lift")[1:100]) # much better after removing more variabls
 
-
+plot(model_4.3, method = "graph", control = list(type = "itemsets")) # looks hairy 
 
 
 

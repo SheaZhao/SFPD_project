@@ -8,51 +8,43 @@ library(arulesViz)
 library(dplyr)
 
 # new model
-model_4.3.2 <- apriori(spar_trix_4.3, parameter = list(support=0.007, confidence = 0.10, minlen = 2),
-                       control = list(verbose = F), appearance = list(rhs = c("race"),
-                                         lhs = c("armed_unarmed","cause_of_death",
-                                                 "city", "state", "gender",
-                                                 "mental_illness", "charges_brought")))
+model_4.3.2 <- apriori(spar_trix_4.3, parameter = list(support=0.007, confidence = 0.10, minlen = 2))
 
-summary(model_4.3.2) # set of 30344 rules rules
-
-
-model_4.3.3 <- apriori(spar_trix_4.3, parameter = list(support=0.007, confidence = 0.10, minlen = 2),
-                       control = list(verbose = F),
-                       appearance = list(rhs = c("armed_unarmed","cause_of_death",
-                                                 "city", "state", "gender",
-                                                 "mental_illness", "charges_brought"),
-                                         lhs = c("race")))
-
-summary(model_4.3.3) # set of 30344 rules
-
-
-model_4.3.4 <- apriori(spar_trix_4.3, parameter = list(support=0.007, confidence = 0.10, minlen = 2),
-                       appearance = list(rhs = c("race")))
-
-summary(model_4.3.4) #set of 30344 rules
-
-
-
-# interpreting rules
+summary(model_4.3.2) #set of 30344 rules
 inspect(sort(model_4.3.2, by="lift")[1:100])
 
-inspect(sort(model_4.3.3, by="lift")[1:100])
+# find redundant rules
+subset.matrix <- is.subset(model_4.3.2, model_4.3.2)
+subset.matrix[lower.tri(subset.matrix, diag = T)] <- NA
+redundant <- colSums(subset.matrix, na.rm = T) >= 1
 
-inspect(sort(model_4.3.4, by="lift")[1:100])
+# which rules are redundant
+which(redundant) # over 1,000 redundant rules
 
-# vizualizing rules -- take out all?
+# remove redundant rules
+rules.pruned <- model_4.3.2[!redundant]
 
-plot(model_4.3.2.all) # scatter plot for 27 rules
+# interpreting rules
+inspect(rules.pruned)
 
-plot(model_4.3.2.all, method = "grouped") #clusters matrix
+# models by race
+model_4.3.4 <- apriori(spar_trix_4.3, control = list(verbose =F),
+                       parameter = list(support=0.007, confidence = 0.10, minlen = 2),
+                       appearance = list(rhs = c("Black"), default = "lhs"))
 
-plot(model_4.3.2.all, method = "graph")
 
-plot(model_4.3.2.all, method = "graph", control = list(type = "items"))
+# vizualizing rules
 
-# parallel coordinates plot for 27 rules
-plot(model_4.3.2.all, method = "paracoord", control = list(reorder = TRUE))
+plot(model_4.3.4) # scatter plot for rules
+
+plot(model_4.3.4, method = "grouped") #clusters matrix
+
+plot(model_4.3.4, method = "graph") # takes a long time to run
+
+plot(model_4.3.4, method = "graph", control = list(type = "items"))
+
+# parallel coordinates plot for rules
+plot(model_4.3.4, method = "paracoord", control = list(reorder = TRUE))
 
 
 
