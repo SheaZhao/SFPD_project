@@ -66,7 +66,7 @@ race_COD$cause_of_death[grep("Negligence/Negligence/Neglect", race_COD$cause_of_
 
 # plot Gunshot freq by race    
 race_COD_Gunshot.ggvis <- race_COD_spread %>%
-    ggvis(x = ~race, y = ~Gunshot, fill = ~race)
+    ggvis(x = ~race, y = ~Gunshot, fill = ~race) %>% add_axis("x", title = "Gun Deaths")
 race_COD_Gunshot.ggvis 
 # not a huge difference 
 
@@ -106,7 +106,7 @@ race_COD_PepSpray.ggvis
 
 # plot Taser freq by race    
 race_COD_Taser.ggvis <- race_COD_spread %>%
-    ggvis(x = ~race, y = ~Taser, fill = ~race)
+    ggvis(x = ~race, y = ~Taser, fill = ~race) %>% add_axis("x", title = "Taser Deaths")
 race_COD_Taser.ggvis 
 # Blacks have the highest rates of death followed by Hispanics, Whites,
 # Unknown, Asian, Native Americans
@@ -163,14 +163,14 @@ View(race_COD_temp)
 # plot Gun deaths vs non_Gundeaths
 
 Gun_nonGun.ggvis <- race_COD_temp %>%
-    ggvis(x = ~race, y = ~ freq, fill = ~cause_of_death)
+    ggvis(x = ~race, y = ~ freq, fill = ~cause_of_death) 
 Gun_nonGun.ggvis # not much difference, should just look at non_Gunshot deaths
 
 
 race_COD_temp_2 <- filter(race_COD_temp, cause_of_death == "non_Gunshot")
 
 non_Gun.ggvis <- race_COD_temp_2 %>%
-    ggvis(x = ~race, y = ~ freq, fill = ~race)
+    ggvis(x = ~race, y = ~ freq, fill = ~race) %>% add_axis("x", title = "NonGun Deaths")
 non_Gun.ggvis # much better!
 # Pacific Islanders, Blacks, & Asians are most likely to have non_Gun COD's
 # raltive to Hispanics, Whites, & Native Americans
