@@ -59,59 +59,12 @@ itemFrequencyPlot(spar_trix_4.3, topN = 5)
 ## Build a Model ####
 
 model_4.3 <- apriori(spar_trix_4.3, parameter = list(support=0.007, confidence = 0.10, minlen = 2))
-model_4.3 #30,044 rules!
-summary(model_4.3)
-## SUMMARY ####
-# Apriori
-# 
-# Parameter specification:
-#     confidence minval smax arem  aval originalSupport maxtime support minlen maxlen target   ext
-# 0.1    0.1    1 none FALSE            TRUE       5   0.007      2     10  rules FALSE
-# 
-# Algorithmic control:
-#     filter tree heap memopt load sort verbose
-# 0.1 TRUE TRUE  FALSE TRUE    2    TRUE
-# 
-# Absolute minimum support count: 31 
-# 
-# set item appearances ...[0 item(s)] done [0.00s].
-# set transactions ...[16374 item(s), 4565 transaction(s)] done [0.03s].
-# sorting and recoding items ... [143 item(s)] done [0.00s].
-# creating transaction tree ... done [0.00s].
-# checking subsets of size 1 2 3 4 5 6 7 8 done [0.03s].
-# writing ... [30344 rule(s)] done [0.02s].
-# creating S4 object  ... done [0.02s].
-# > model_4.3 #28,790 rules!
-# set of 30344 rules 
-# > summary(model_4.3)
-# set of 30344 rules
-# 
-# rule length distribution (lhs + rhs):sizes
-# 2    3    4    5    6    7    8 
-# 1104 5363 9930 8873 4063  931   80 
-# 
-# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-# 2.000   4.000   4.000   4.413   5.000   8.000 
-# 
-# summary of quality measures:
-#     support           confidence          lift         
-# Min.   :0.007010   Min.   :0.1000   Min.   :  0.1737  
-# 1st Qu.:0.008105   1st Qu.:0.5068   1st Qu.:  0.9997  
-# Median :0.010077   Median :0.8421   Median :  1.0388  
-# Mean   :0.020075   Mean   :0.7271   Mean   :  5.0034  
-# 3rd Qu.:0.015991   3rd Qu.:0.9740   3rd Qu.:  1.1921  
-# Max.   :0.921577   Max.   :1.0000   Max.   :123.3784  
-# 
-# mining info:
-#     data ntransactions support confidence
-# spar_trix_4.3          4565   0.007        0.1
+summary(model_4.3) # set of 1475 rules
 
-
-
-## Sort model rules by lift ####
+#Sort model rules by lift
 
 #inspect(model_4.1, by = "lift")[1:10] # just look at top 10
-inspect(sort(model_4.3, by="lift")[1:100])
+inspect(sort(model_4.3, by="lift")[1:100]) # much better after removing more variabls
 
 
 
