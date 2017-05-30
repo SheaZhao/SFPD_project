@@ -28,8 +28,11 @@ colnames(mpv_4.2) # remove some of these
 
 # remove URL, description, link_news_doc
 
-mpv_4.3 <- select(mpv_4.2, - c(URL, description, link_news_doc))
-View(mpv_4.3)
+mpv_4.3 <- select(mpv_4.2, - c(name, age, URL, date, zip_code, county, 
+                               agency_responsible, description, justification_of_death,
+                               charges_brought, link_news_doc, address, gender))
+colnames(mpv_4.3)
+#[1] "race" "city" "state"  "cause_of_death" "mental_illness" "armed_unarmed" 
 
 
 # make 4.1 & 4.2 csv's so I can import them as sparce matrisis
@@ -56,9 +59,9 @@ itemFrequencyPlot(spar_trix_4.3, topN = 5)
 ## Build a Model ####
 
 model_4.3 <- apriori(spar_trix_4.3, parameter = list(support=0.007, confidence = 0.10, minlen = 2))
-model_4.3 #28,790 rules!
+model_4.3 #30,044 rules!
 summary(model_4.3)
-##SUMMARY ####
+## SUMMARY ####
 # Apriori
 # 
 # Parameter specification:
